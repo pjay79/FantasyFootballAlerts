@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "887580580040",
+    "firebase_url": "https://fantasy-football-alerts.firebaseio.com",
+    "project_id": "fantasy-football-alerts",
+    "storage_bucket": "fantasy-football-alerts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887580580040:android:c8540d85b60bc92e",
+        "android_client_info": {
+          "package_name": "com.fantasyfootballalerts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887580580040-ldbcktvksikj629tg8rr6efme1m8r1k1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVEzjEL9atESRGl4f6ZBPCBd7s3RsI9tk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
