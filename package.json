@@ -10,7 +10,7 @@
     "pubnub": "^4.21.7",
     "pubnub-react": "^1.2.0",
     "react": "16.6.3",
-    "react-native": "0.58.0",
+    "react-native": "0.58.1",
     "react-native-push-notification": "^3.1.2"
   },
   "devDependencies": {
