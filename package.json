@@ -11,7 +11,11 @@
     "pubnub-react": "^1.2.0",
     "react": "16.6.3",
     "react-native": "0.58.1",
-    "react-native-push-notification": "^3.1.2"
+    "react-native-config": "^0.11.7",
+    "react-native-gesture-handler": "^1.0.15",
+    "react-native-push-notification": "^3.1.2",
+    "react-native-vector-icons": "^6.2.0",
+    "react-navigation": "^3.0.9"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",

@@ -11,13 +11,16 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import PubNubReact from 'pubnub-react';
+import Config from 'react-native-config';
 
 export default class App extends Component {
   componentDidMount() {
     const pubnub = new PubNubReact({
-      publishKey: 'pub-c-8f812f40-d146-4617-839a-71b242e219d2',
-      subscribeKey: 'sub-c-49dd4b46-2055-11e9-b712-2656c4b29a42',
+      publishKey: Config.PUBNUB_PUBLISH_KEY,
+      subscribeKey: Config.PUBNUB_SUBSCRIBE_KEY,
     });
+    console.log(Config.PUBNUB_PUBLISH_KEY);
+    console.log(Config.PUBNUB_SUBSCRIBE_KEY);
     PushNotification.configure({
       // Called when Token is generated.
       onRegister(token) {
@@ -64,7 +67,7 @@ export default class App extends Component {
         // notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
       // ANDROID: GCM or FCM Sender ID
-      senderID: '887580580040',
+      senderID: Config.FCM_SENDER_ID,
     });
   }
 
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#009F35',
+    backgroundColor: '#4AE0BD',
   },
   header: {
     fontSize: 30,
