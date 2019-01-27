@@ -8,10 +8,10 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import PushNotification from 'react-native-push-notification';
 import PubNubReact from 'pubnub-react';
 import Config from 'react-native-config';
+import MainNavigator from './app/features/MainNavigator';
 
 export default class App extends Component {
   componentDidMount() {
@@ -19,8 +19,6 @@ export default class App extends Component {
       publishKey: Config.PUBNUB_PUBLISH_KEY,
       subscribeKey: Config.PUBNUB_SUBSCRIBE_KEY,
     });
-    console.log(Config.PUBNUB_PUBLISH_KEY);
-    console.log(Config.PUBNUB_SUBSCRIBE_KEY);
     PushNotification.configure({
       // Called when Token is generated.
       onRegister(token) {
@@ -72,31 +70,6 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Fantasy Football Alerts</Text>
-        <Text style={styles.subHeader}>Push Notifications</Text>
-      </View>
-    );
+    return <MainNavigator />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#4AE0BD',
-  },
-  header: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#FFFFFF',
-  },
-  subHeader: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#FFFFFF',
-  },
-});
