@@ -26,7 +26,8 @@ React Native push notifications demo app using PubNub and PubNub-React
 
 ## React Native setup:
 
-Install Node.js:  
+Install Node.js:
+
 https://nodejs.org/en/download/
 
 `brew install watchman`  
@@ -36,17 +37,20 @@ And also install Xcode for iOS simulator + Android Studio / Genymotion for Andro
 
 ## Project setup:
 
-Clone the repo:
-`git clone https://github.com/pjay79/FantasyFootballAlerts.git`  
-Change to the project folder:
-`cd FanstasyFootballAlerts`  
-Add dependencies:
+Clone the repo:  
+`git clone https://github.com/pjay79/FantasyFootballAlerts.git`
+
+Change to the project folder:  
+`cd FanstasyFootballAlerts`
+
+Add dependencies:  
 `yarn`
 
 ### PubNub
 
-Register an account on PunNub:  
-`https://www.pubnub.com/`
+Register an account on PunNub:
+
+https://www.pubnub.com/
 
 Create a new app called 'Fantasy Football Alerts':
 
@@ -61,8 +65,9 @@ Create a new keyset for this app and record the **Publish Key** and **Subscribe 
 
 ## iOS APNS
 
-Sign up for a paid Apple Developer account:  
-`https://developer.apple.com/programs/`
+Sign up for a paid Apple Developer account:
+
+https://developer.apple.com/programs/
 
 Open the Xcode project buy going to the app's project root folder:
 
@@ -76,7 +81,7 @@ In Xcode, navigate to:
 
 Add your **Apple ID** for your Apple Developer Account.
 
-In Xcode, navivate to your main project file (.xcodeproj file with blue icon) and find:
+In Xcode, navigate to your main project file (.xcodeproj file with blue icon) and find:
 
 `General Settings`
 
@@ -86,17 +91,16 @@ Next navigate to:
 
 `Capabilities`
 
-Toggle the switch for **Push Notifications** to **ON**.
-
+Toggle the switch for **Push Notifications** to **ON**.  
 Toggle the switch for **Background Modes** to **ON** and select **Remote notifications**.
 
 Manually link the **PushNotificationIOS** library by following the guide below:
 
-`https://facebook.github.io/react-native/docs/linking-libraries-ios#manual-linking`
+https://facebook.github.io/react-native/docs/linking-libraries-ios#manual-linking
 
 To create an Apple Push Notification Service (APNS) SSL certificate (.p12 file), follow this excellent guide below from the AWS Amplify team:
 
-`https://aws-amplify.github.io/docs/ios/push-notifications-setup-apns`
+https://aws-amplify.github.io/docs/ios/push-notifications-setup-apns
 
 - for this project follow Steps 1 to 3 only
 - set your App ID Suffix in Step 1 as the Bundle Identifier used in Xcode
@@ -106,7 +110,14 @@ The .p12 certificate needs to be uploaded to PubNub. Apple has a new .p8 certifi
 
 `openssl pkcs12 -in Certificates.p12 -out Certifcates.pem -nodes -clcerts`
 
-Head back to the PubNub dashboard, select **Key Info** for your app, and turn on **Mobile Push Notifications**. Upload the .pem file and select **Development** as the **APNS Environment**. Done!
+Head back to the PubNub dashboard, select **Key Info** for your app, and turn on **Mobile Push Notifications**. Upload the .pem file and select **Development** as the **APNS Environment**.
+
+This app uses **React Native Config** to manage environment variables. In your project folder add a **.env** file with references for the **Publish Key** and **Subscribe Key**
+
+```
+PUBNUB_PUBLISH_KEY=pub-c-1234...
+PUBNUB_SUBSCRIBE_KEY=sub-c-6789...
+```
 
 ## Android FCM/GCM setup
 
@@ -146,4 +157,26 @@ Inside the application section:
         <action android:name="com.google.firebase.MESSAGING_EVENT" />
     </intent-filter>
 </service>
+```
+
+Sign up to Google Firebase:
+
+https://firebase.google.com/
+
+Next select **Add Firebase to app** choosing the Android option. Enter the same package name that is found at the top of the MainApplication.java file in your project. Download the **google-service.json** file and add it to the android/app directory. Skip the other steps listed.
+
+In the console go to:
+
+`Project Settings > Cloud Messaging`
+
+Make note of the **Server Key** and **Sender ID**.
+
+Head back to the PubNub dashboard, select **Key Info** for your app, under the **Mobile Push Notifications**. Copy the **Server Key** to the **GCM API Key** input.
+
+Add the **Sender ID** to the **.env** file already created:
+
+```
+PUBNUB_PUBLISH_KEY=pub-c-1234...
+PUBNUB_SUBSCRIBE_KEY=sub-c-6789...
+FCM_SENDER_ID=12346789
 ```
