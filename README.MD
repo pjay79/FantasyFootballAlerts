@@ -109,3 +109,41 @@ The .p12 certificate needs to be uploaded to PubNub. Apple has a new .p8 certifi
 Head back to the PubNub dashboard, select **Key Info** for your app, and turn on **Mobile Push Notifications**. Upload the .pem file and select **Development** as the **APNS Environment**. Done!
 
 ## Android FCM/GCM setup
+
+Back in the project folder, find and edit the AndroidManifest.xml file and add the following:
+
+```
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fantasyfootballalerts"
+    android:usesCleartextTraffic="true"
+    >
+```
+
+```
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+<permission
+   android:name="${applicationId}.permission.C2D_MESSAGE"
+   android:protectionLevel="signature" />
+<uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+<uses-permission android:name="android.permission.VIBRATE" />
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+```
+
+Inside the application section:
+
+```
+<receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
+<receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
+</receiver>
+<service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService"/>
+<service
+    android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
+    android:exported="false" >
+    <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+    </intent-filter>
+</service>
+```
