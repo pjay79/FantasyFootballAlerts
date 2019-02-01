@@ -38,8 +38,6 @@ https://nodejs.org/en/download/
 `brew install watchman`  
 `npm install -g react-native-cli`
 
-And also install Xcode for iOS simulator + Android Studio / Genymotion for Android simulator. Preferably connect up a hardware device for this particular app to access geolocation, maps + directions, and phone connection.
-
 ## Project setup:
 
 Clone the repo:  
