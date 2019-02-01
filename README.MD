@@ -72,7 +72,7 @@ Sign up for a paid Apple Developer account:
 
 https://developer.apple.com/programs/
 
-Open the Xcode project buy going to the app's project root folder:
+Open the Xcode project by going to the app's project root folder:
 
 `cd FantasyFootballAlerts`  
 `cd ios`  
@@ -109,7 +109,7 @@ https://aws-amplify.github.io/docs/ios/push-notifications-setup-apns
 - set your App ID Suffix in Step 1 as the Bundle Identifier used in Xcode
 - create a **Development SSL** instead of a Production SSL
 
-The .p12 certificate needs to be uploaded to PubNub. Apple has a new .p8 certificate, but at the moment this is not supported by PubNub. The .p12 certificate needs to be converted to a .pem file and then uploaded to PubNub. To convert .p12 to .pem enter the following in Terminal:
+The .p12 certificate is what we need. Apple has a new .p8 certificate, but at the moment this is not supported by PubNub. The .p12 certificate needs to be converted to a .pem file and then uploaded to PubNub. To convert .p12 to .pem enter the following in Terminal:
 
 `openssl pkcs12 -in Certificates.p12 -out Certifcates.pem -nodes -clcerts`
 
@@ -174,7 +174,7 @@ In the console go to:
 
 Make note of the **Server Key** and **Sender ID**.
 
-Head back to the PubNub dashboard, select **Key Info** for your app, under the **Mobile Push Notifications**. Copy the **Server Key** to the **GCM API Key** input.
+Head back to the PubNub dashboard, select **Key Info** for your app, and again under the **Mobile Push Notifications** section, copy the **Server Key** to the **GCM API Key** input.
 
 Add the **Sender ID** to the **.env** file already created:
 
@@ -306,6 +306,8 @@ In the **notifications-pndebug** channel, you should see the following output:
 ```
 
 <img width="777" alt="screen shot 2019-02-01 at 3 03 59 pm" src="https://user-images.githubusercontent.com/14052885/52102399-59e75b00-2634-11e9-8373-2b622c4fc413.png">
+
+Of course, check your device and you should see the notifications!
 
 Please refer to the PubNub Javascript / React V4 SDK documentation for more detailed implementation details.
 
