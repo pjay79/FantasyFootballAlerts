@@ -180,3 +180,130 @@ PUBNUB_PUBLISH_KEY=pub-c-1234...
 PUBNUB_SUBSCRIBE_KEY=sub-c-6789...
 FCM_SENDER_ID=12346789
 ```
+
+# Runing on device
+
+### iOS
+
+https://facebook.github.io/react-native/docs/running-on-device#running-your-app-on-ios-devices
+
+### Android
+
+https://facebook.github.io/react-native/docs/running-on-device#running-your-app-on-android-devices
+
+# React Native code:
+
+## App.js
+
+```
+import React, { Component } from 'react';
+import PushNotificationWorker from './app/utils/PushNotificationWorker';
+import MainNavigator from './app/features/MainNavigator';
+
+export default class App extends Component {
+  componentDidMount() {
+    PushNotificationWorker();
+  }
+
+  render() {
+    return <MainNavigator />;
+  }
+}
+```
+
+## PushNotificationWorker.js
+
+I have hardcoded a uuid in the PubNubReact initialization. I would suggest using something like a username or other form of ID to uniquley identify each device.
+
+```
+import { Platform } from 'react-native';
+import PushNotification from 'react-native-push-notification';
+import PubNubReact from 'pubnub-react';
+import Config from 'react-native-config';
+
+export default () => {
+  const pubnub = new PubNubReact({
+    publishKey: Config.PUBNUB_PUBLISH_KEY,
+    subscribeKey: Config.PUBNUB_SUBSCRIBE_KEY,
+    uuid: Platform.os === 'ios' ? 'PJ-ios' : 'PJ-android',
+  });
+  PushNotification.configure({
+    // Called when Token is generated.
+    onRegister(token) {
+      console.log('TOKEN:', token);
+      if (token.os === 'ios') {
+        pubnub.push.addChannels(
+          {
+            channels: ['notifications'],
+            device: token.token,
+            pushGateway: 'apns',
+          },
+          (status) => {
+            if (status.error) {
+              console.log('Operation failed: ', status);
+            } else {
+              console.log('Operation done!');
+            }
+          },
+        );
+        // Send to iOS from debug console: {"pn_apns":{"aps":{"alert":"Hello World."}}}
+      } else if (token.os === 'android') {
+        pubnub.push.addChannels(
+          {
+            channels: ['notifications'],
+            device: token.token,
+            pushGateway: 'gcm', // apns, gcm, mpns
+          },
+          (status) => {
+            if (status.error) {
+              console.log('Operation failed: ', status);
+            } else {
+              console.log('Operation done!');
+            }
+          },
+        );
+        // Send to Android from debug console: {"pn_gcm":{"data":{"message":"Hello World."}}}
+      }
+    },
+    // Called when a remote or local notification is opened or received.
+    onNotification(notification) {
+      console.log('Alert:', notification);
+      // Do something with the notification.
+      // Required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
+      // notification.finish(PushNotificationIOS.FetchResult.NoData);
+    },
+    // ANDROID: GCM or FCM Sender ID
+    senderID: Config.FCM_SENDER_ID,
+  });
+};
+```
+
+# Testing Push Notifications
+
+Back in the PubNub dashboard, select your app and keyset. Select **Debug Console** and create a client with **Default Channel** set to **notifications**. Also create another client called **notifications-pndebug**.
+
+In the **notifications** channel enter the following:
+
+```
+{
+  "pn_gcm": {
+    "data": { "message": "Hello World!" }
+  },
+  "pn_apns": {
+    "aps": { "alert": "Hello World!" }
+  },
+ "pn_debug": true
+}
+```
+
+In the **notifications-pndebug** channel, you should see the following output:
+
+```
+"Devices found for push notification apns: 1 gcm: 1 mpns: 0"
+```
+
+<img width="777" alt="screen shot 2019-02-01 at 3 03 59 pm" src="https://user-images.githubusercontent.com/14052885/52102399-59e75b00-2634-11e9-8373-2b622c4fc413.png">
+
+Please refer to the PubNub Javascript / React V4 SDK documentation for more detailed implementation details.
+
+https://www.pubnub.com/docs/react-native-javascript/pubnub-javascript-sdk
