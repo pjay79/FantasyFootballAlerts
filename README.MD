@@ -6,11 +6,12 @@ React Native push notifications demo app using PubNub and PubNub-React
 
 ## iOS
 
+![img_4421](https://user-images.githubusercontent.com/14052885/52104751-21e61500-2640-11e9-9889-416ba1f4d116.PNG)
+![img_4415](https://user-images.githubusercontent.com/14052885/52104431-b51e4b00-263e-11e9-960e-c1e7ce9908c4.PNG)
 ![img_4411](https://user-images.githubusercontent.com/14052885/52104427-b485b480-263e-11e9-93bb-92079e3c627c.PNG)
 ![img_4412](https://user-images.githubusercontent.com/14052885/52104428-b485b480-263e-11e9-85f7-0c5f201ed18e.PNG)
 ![img_4413](https://user-images.githubusercontent.com/14052885/52104429-b51e4b00-263e-11e9-9b71-fb47c7568841.PNG)
 ![img_4414](https://user-images.githubusercontent.com/14052885/52104430-b51e4b00-263e-11e9-9bee-290aeacd70b4.PNG)
-![img_4415](https://user-images.githubusercontent.com/14052885/52104431-b51e4b00-263e-11e9-960e-c1e7ce9908c4.PNG)
 
 ## Technology stack:
 
